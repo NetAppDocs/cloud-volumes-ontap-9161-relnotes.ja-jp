@@ -1,0 +1,57 @@
+---
+sidebar: sidebar 
+permalink: reference-limitations-aws.html 
+keywords: limitations, aws, amazon web services, flashe cache, alarms, cloudwatch, giveback, govcloud, c2s, aws outpost, outposts 
+summary: これらの既知の制限は、Amazon Web Services のCloud Volumes ONTAPに固有のものです。 
+---
+= AWS におけるCloud Volumes ONTAPの既知の制限
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+次の既知の制限は、Amazon Web Services のCloud Volumes ONTAPに固有のものです。必ず確認してくださいlink:reference-limitations.html["すべてのクラウドプロバイダーにおけるCloud Volumes ONTAPの制限"]。
+
+
+
+== AWS Outpost の制限
+
+AWS Outpost がある場合は、作業環境ウィザードで Outpost VPC を選択して、その Outpost にCloud Volumes ONTAP をデプロイできます。エクスペリエンスは、AWS にある他の VPC と同じです。最初に AWS Outpost にコネクタをデプロイする必要があることに注意してください。
+
+指摘すべき制限がいくつかあります。
+
+* 現時点では、単一ノードのCloud Volumes ONTAPシステムのみがサポートされています。
+* Cloud Volumes ONTAPで使用できるEC2インスタンスは、Outpostで利用可能なものに限定されます。
+* 現時点では汎用SSD（gp2）のみがサポートされています
+
+
+
+
+== フラッシュキャッシュの制限
+
+C5D および R5D インスタンス タイプには、 Cloud Volumes ONTAP が_Flash Cache_ として使用するローカル NVMe ストレージが含まれます。次の制限に注意してください。
+
+* Cloud Volumes ONTAP 9.12.0 までの Flash Cache パフォーマンスの向上を活用するには、すべてのボリュームで圧縮を無効にする必要があります。  Cloud Volumes ONTAP 9.12.1 をデプロイまたはアップグレードする場合は、圧縮を無効にする必要はありません。
++
+BlueXPからボリュームを作成するときにストレージ効率を選択することはできません。または、ボリュームを作成してから http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-vsmg/GUID-8508A4CB-DB43-4D0D-97EB-859F58B29054.html["CLIを使用してデータ圧縮を無効にする"^]。
+
+* 再起動後のキャッシュの再ウォームアップは、 Cloud Volumes ONTAPではサポートされていません。
+
+
+
+
+== Amazon CloudWatch によって報告された誤報
+
+Cloud Volumes ONTAPはアイドル時にCPUを解放しないため、 https://aws.amazon.com/cloudwatch/["Amazon クラウドウォッチ"^] EC2 インスタンスの CPU 使用率が 100% であるため、CPU 使用率が高いという警告が報告されることがあります。このアラームは無視できます。  ONTAP統計コマンドは、CPU の実際の使用状況を表示します。
+
+
+
+== Cloud Volumes ONTAP HAペアは即時ストレージギブバックをサポートしていません
+
+ノードが再起動した後、パートナーはストレージを返す前にデータを同期する必要があります。データの再同期にかかる時間は、ノードがダウンしている間にクライアントによって書き込まれたデータの量と、ギブバック時のデータ書き込み速度によって異なります。
+
+https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/concept-ha.html["AWS で実行されるCloud Volumes ONTAP HA ペアのストレージの仕組みを学びます"^] 。

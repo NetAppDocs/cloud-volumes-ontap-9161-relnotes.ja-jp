@@ -1,0 +1,113 @@
+---
+sidebar: sidebar 
+permalink: reference-limitations.html 
+keywords: limitations, detaching, snapmanager, features, disks, aggregates, features, svm 
+summary: 今回のリリースでサポートされていない、または今回のリリースでは正常に機能しないプラットフォーム、デバイス、機能が記載されています。これらの制限事項をよく確認してください。 
+---
+= すべてのクラウドプロバイダーにおけるCloud Volumes ONTAPの既知の制限
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+今回のリリースでサポートされていない、または今回のリリースでは正常に機能しないプラットフォーム、デバイス、機能が記載されています。これらの制限事項をよく確認してください。
+
+次の制限は、すべてのクラウドプロバイダー（AWS、Azure、Google Cloud）のCloud Volumes ONTAPに適用されます。
+
+
+
+== サポートされていないONTAP機能
+
+次の機能はCloud Volumes ONTAPではサポートされていません。
+
+* 集約レベルのインライン重複排除
+* 集約レベルのバックグラウンド重複排除
+* ディスクメンテナンスセンター
+* ディスク完全消去
+* FabricPoolミラーリング
+* Fibre Channel（FC）
+* フラッシュプール
+* Infinite Volume
+* インターフェイス グループ
+* ノード内LIFフェイルオーバー
+* MetroCluster
+* マルチ管理者認証
++
+Cloud Volumes ONTAPでマルチ管理者検証を有効にすると、サポートされていない構成になります。
+
+* RAID4、RAID-DP、 RAID-TEC （RAID0をサポート）
+* Service Processor
+* SnapLock Complianceおよびエンタープライズ モード (Cloud WORM のみサポート)
+* SnapMirror Synchronous
+* VLAN
+* SMB 継続的な可用性 (CA)
++
+https://kb.netapp.com/on-prem/ontap/da/NAS/NAS-KBs/What_are_SMB_Continuous_Availability_CA_Shares["継続的可用性を備えたSMB共有"^]中断のない運用はサポートされていません。
+
+
+
+
+
+== 最大同時レプリケーション操作数
+
+Cloud Volumes ONTAPの同時SnapMirrorまたはSnapVault転送の最大数は、インスタンス タイプやマシン タイプに関係なく、ノードあたり 100 です。
+
+
+
+== クラウドプロバイダーのスナップショットは、バックアップおよびリカバリ計画には使用しないでください。
+
+Cloud Volumes ONTAPデータのバックアップおよびリカバリ計画の一部として、クラウド プロバイダーのスナップショットを使用しないでください。  Cloud Volumes ONTAPでホストされているデータをバックアップおよび復元するには、常にONTAP Snapshot コピーまたはサードパーティのバックアップ ソリューションを使用する必要があります。
+
+https://docs.netapp.com/us-en/bluexp-backup-recovery/concept-backup-to-cloud.html["BlueXP backup and recoveryを使用してONTAPデータをバックアップおよび復元する方法を学びます"^] 。
+
+
+NOTE: WAFLファイルシステムのONTAP整合性ポイントによって、データの整合性が決定されます。  ONTAPだけが、 WAFLファイルシステムを静止させてクラッシュ整合性のあるバックアップを作成できます。
+
+
+
+== Cloud Volumes ONTAPは、予約済みおよびオンデマンドのVMインスタンスのみをサポートします。
+
+Cloud Volumes ONTAP は、クラウド プロバイダーの予約済み VM インスタンスまたはオンデマンド VM インスタンスのいずれかで実行できます。他のタイプの VM インスタンスはサポートされていません。
+
+
+
+== 自動アプリケーションリソース管理ソリューションは使用すべきではない
+
+自動アプリケーション リソース管理ソリューションでは、Cloud Volumes ONTAPシステムを管理しないでください。そうすると、サポートされていない構成に変更される可能性があります。たとえば、ソリューションによって、 Cloud Volumes ONTAP がサポートされていない VM インスタンス タイプに変更される可能性があります。
+
+
+
+== ソフトウェアアップデートはBlueXPによって完了する必要があります
+
+Cloud Volumes ONTAPのアップグレードはBlueXPから完了する必要があります。 System Manager または CLI を使用してCloud Volumes ONTAP をアップグレードしないでください。システムの安定性に影響を与える可能性があります。
+
+
+
+== Cloud Volumes ONTAPのデプロイメントは、クラウドプロバイダのコンソールから変更することはできません。
+
+クラウド プロバイダーのコンソールからCloud Volumes ONTAP構成を変更すると、サポートされていない構成になります。  BlueXP が作成および管理するCloud Volumes ONTAPリソースに変更を加えると、システムの安定性と BlueXP のシステム管理能力に影響する可能性があります。
+
+
+NOTE: 初期展開後、 Cloud Volumes ONTAPリソースに使用される Azure サブスクリプション名の変更がサポートされます。
+
+
+
+== ディスクとアグリゲートはBlueXPから管理する必要がある
+
+すべてのディスクとアグリゲートはBlueXPから直接作成および削除する必要があります。これらのアクションを別の管理ツールから実行しないでください。そうすると、システムの安定性に影響が及び、将来的にディスクを追加する能力が妨げられ、クラウド プロバイダーの料金が重複して発生する可能性があります。
+
+
+
+== SnapManagerライセンスの制限
+
+SnapManager のサーバーごとのライセンスは、Cloud Volumes ONTAPでサポートされています。ストレージ システムごと (SnapManagerスイート) のライセンスはサポートされていません。
+
+
+
+== サードパーティのエージェントと拡張機能の制限
+
+サードパーティ エージェントと VM 拡張機能は、Cloud Volumes ONTAP仮想マシン インスタンスではサポートされていません。

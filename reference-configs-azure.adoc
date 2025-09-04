@@ -1,0 +1,584 @@
+---
+sidebar: sidebar 
+permalink: reference-configs-azure.html 
+keywords: vm, explore, standard, premium, byol, capacity, maximum, virtual machine, Cloud Volumes ONTAP, supported, configurations, disks, sizes 
+summary: Azure では、いくつかのCloud Volumes ONTAP構成がサポートされています。 
+---
+= Azure でサポートされるCloud Volumes ONTAPの構成
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Azure では、いくつかのCloud Volumes ONTAP構成がサポートされています。
+
+
+
+== ライセンスによってサポートされる構成
+
+Cloud Volumes ONTAP は、 Azure で単一ノード システムとして、またフォールト トレランスと中断のない運用を実現する高可用性 (HA) ノード ペアとして利用できます。
+
+単一ノード システムを HA ペアにアップグレードすることはサポートされていません。単一ノード システムと HA ペア間を切り替える場合は、新しいシステムを展開し、既存のシステムから新しいシステムにデータを複製する必要があります。
+
+Cloud Volumes ONTAP は、クラウド プロバイダーの予約済み VM インスタンスまたはオンデマンド VM インスタンスのいずれかで実行できます。他の VM インスタンス タイプを使用するソリューションはサポートされていません。
+
+サポートされているインスタンスの仕様については、 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/overview["Microsoft Azure ドキュメント"^] 。
+
+
+
+=== 単一ノードシステム
+
+Cloud Volumes ONTAP をAzure の単一ノード システムとして導入する場合は、次の容量ベースまたはノードベースのライセンス構成から選択できます。
+
+Cloud Volumes ONTAP は、クラウド プロバイダーの予約済み VM インスタンスまたはオンデマンド VM インスタンスのいずれかで実行できます。他の VM インスタンス タイプを使用するソリューションはサポートされていません。
+
+[role="tabbed-block"]
+====
+.容量ベースのライセンス
+--
+[cols="h,d,d,d"]
+|===
+|  | フリーミアム | 最適化されました ^5^ | 容量ベースのライセンス（Essentials および Professional） 
+
+
+| 最大システム容量（ディスク + オブジェクト ストレージ） | 500ギガバイト  a| 
+容量ベースのライセンスにより、各Cloud Volumes ONTAPシステムはオブジェクト ストレージへの階層化をサポートします。階層化された合計容量は、クラウド プロバイダーのバケット制限まで拡張できます。ライセンスには容量制限はありませんが、 https://www.netapp.com/pdf.html?item=/media/17239-tr-4598.pdf["『FabricPoolのベストプラクティス』"^]階層化を構成および管理する際に最適なパフォーマンス、信頼性、コスト効率を確保します。
+
+
+
+| サポートされている仮想マシンの種類  a| 
+* DS4_v2 ^1^
+* DS5_v2 ^1^
+* DS13_v2 ^1^
+* DS14_v2 ^1^
+* DS15_v2 ^1^
+* E4s_v3 ^1^
+* E8s_v3 ^1^
+* E32s_v3 ^1,3^
+* E48s_v3 ^1,3^
+* E64is_v3 ^1,3^
+* E4ds_v4
+* E8ds_v4
+* E32ds_v4 ^3^
+* E48ds_v4 ^3^
+* E80ids_v4 ^3^
+* E4ds_v5
+* E8ds_v5
+* E20ds_v5 ^3^
+* E32ds_v5 ^3^
+* E48ds_v5 ^3^
+* E64ds_v5 ^3^
+* L8s_v3 ^2^
+* L16s_v3 ^2^
+* L32s_v3 ^2^
+* L48s_v3 ^2^
+* L64s_v3 ^2^
+
+ a| 
+* DS4_v2 ^1^
+* DS13_v2 ^1^
+* E4s_v3 ^1^
+* E8s_v3 ^1^
+* E4ds_v4 ^3^
+* E8ds_v4 ^3^
+* E4ds_v5
+* E8ds_v5
+
+ a| 
+* DS4_v2 ^1^
+* DS5_v2 ^1^
+* DS13_v2 ^1^
+* DS14_v2 ^1^
+* DS15_v2 ^1^
+* E4s_v3 ^1^
+* E8s_v3 ^1^
+* E32s_v3 ^1,3^
+* E48s_v3 ^1,3^
+* E64is_v3 ^1,3^
+* E4ds_v4 ^3^
+* E8ds_v4 ^3^
+* E32ds_v4 ^3^
+* E48ds_v4 ^3^
+* E80ids_v4 ^3^
+* E4ds_v5
+* E8ds_v5
+* E20ds_v5 ^3^
+* E32ds_v5 ^3^
+* E48ds_v5 ^3^
+* E64ds_v5 ^3^
+* L8s_v3 ^2^
+* L16s_v3 ^2^
+* L32s_v3 ^2^
+* L48s_v3 ^2^
+* L64s_v3 ^2^
+
+
+
+
+| サポートされているディスクタイプ ^4^ 3+| 標準 HDD マネージド ディスク、標準 SSD マネージド ディスク、プレミアム SSD マネージド ディスク、およびプレミアム SSD v2 マネージド ディスク。 
+|===
+注：
+
+. ^1^ Azure にCloud Volumes ONTAPの新しいインスタンスを展開するときに、DS_v2 および Es_v3 マシン ファミリはBlueXPで選択できなくなりました。これらのファミリは、古い既存のシステムでのみ保持され、サポートされます。  Cloud Volumes ONTAPの新しいデプロイメントは、9.12.1 リリース以降でのみ Azure でサポートされます。 Es_v4 またはCloud Volumes ONTAP 9.12.1 以降と互換性のある他のシリーズに切り替えることをお勧めします。ただし、DS_v2 および Es_v3 シリーズのマシンは、API を通じて行われる新しいデプロイメントでは利用できるようになります。
+. ^2^ この VM タイプには、 Cloud Volumes ONTAP が_Flash Cache_ として使用するローカル NVMe ストレージが含まれます。 Flash Cache は、最近読み取られたユーザー データとNetAppメタデータをリアルタイムでインテリジェントにキャッシュすることで、データへのアクセスを高速化します。これは、データベース、電子メール、ファイル サービスなどのランダム読み取り集中型のワークロードに効果的です。 https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/concept-flash-cache.html["詳細情報"^] 。
++
+Azure で Flash Cache を構成するために必要な最小ONTAPバージョンは 9.13.1 GA です。
+
+. ^3^ これらのVMタイプは https://docs.microsoft.com/en-us/azure/virtual-machines/windows/disks-enable-ultra-ssd["ウルトラSSD"^]VNVRAM の場合、書き込みパフォーマンスが向上します。
++
+新しいCloud Volumes ONTAPシステムを展開するときにこれらの VM タイプのいずれかを選択した場合、VNVRAM に Ultra SSD を使用しない別の VM タイプに変更することはできません。たとえば、E8ds_v4 から E8s_v3 に変更することはできませんが、E8ds_v4 から E32ds_v4 に変更することはできます。これは、これらの VM タイプは両方とも Ultra SSD を使用しているためです。同様に、新しいCloud Volumes ONTAPシステムを展開する場合、Premium SSD v2 マネージド ディスクをサポートしない VM タイプに変更することはできません。  Premium SSD v2 マネージドディスクのサポートされている構成の詳細については、以下を参照してください。 https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/concept-ha-azure.html#ha-single-availability-zone-configuration-with-shared-managed-disks["共有マネージドディスクを使用した HA 単一アベイラビリティゾーン構成"^] 。
+
++
+逆に、他の VM タイプを使用してCloud Volumes ONTAPをデプロイした場合は、VNVRAM に Ultra SSD を使用する VM タイプに変更することはできません。たとえば、E8s_v3 から E8ds_v4 に変更することはできません。
+
+. ^4^ 単一ノード展開でサポートされているディスクの種類については、 https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/reference-default-configs.html#azure-single-node["Azure (単一ノード)"^] 。単一ノード システムを使用する場合、すべてのインスタンス タイプで高速書き込み速度がサポートされます。展開中または展開後のいつでも、 BlueXPからの高速書き込み速度を有効にすることができます。 https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/concept-write-speed.html["書き込み速度の選択について詳しくはこちら"^] 。  SSD を使用すると、書き込みパフォーマンスが向上します。
+. ^5^ 2025 年 8 月 11 日以降、 Cloud Volumes ONTAP Optimized ライセンスは非推奨となり、従量課金制 (PAYGO) サブスクリプションの Azure マーケットプレースで購入または更新できなくなります。 https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/whats-new.html#11-august-2025["最適化ライセンスの提供終了"^] 。
+
+
+--
+.ノードベースのライセンス
+--
+[cols="h,d,d,d,d"]
+|===
+|  | PAYGO 探索 | PAYGOスタンダード | PAYGOプレミアム | ノードベースのBYOL 
+
+
+| 最大システム容量（ディスク + オブジェクト ストレージ） | 2 TiB ^5^ | 10TiB | 368 TiB | ライセンスあたり368 TiB 
+
+
+| サポートされている仮想マシンの種類  a| 
+* E4s_v3 ^1^
+* E4ds_v4 ^3^
+* E4ds_v5
+
+ a| 
+* DS4_v2 ^1^
+* DS13_v2 ^1^
+* E8s_v3 ^1^
+* E8ds_v4 ^3^
+* E8ds_v5
+* L8s_v3 ^2^
+
+ a| 
+* DS5_v2 ^1^
+* DS14_v2 ^1^
+* DS15_v2 ^1^
+* E32s_v3 ^1,3^
+* E48s_v3 ^1,3^
+* E64is_v3 ^1,3^
+* E32ds_v4 ^3^
+* E48ds_v4 ^3^
+* E80ids_v4 ^3^
+* E20ds_v5 ^3^
+* E32ds_v5 ^3^
+* E48ds_v5 ^3^
+* E64ds_v5 ^3^
+
+ a| 
+* DS4_v2 ^1^
+* DS5_v2 ^1^
+* DS13_v2 ^1^
+* DS14_v2 ^1^
+* DS15_v2 ^1^
+* E4s_v3 ^1^
+* E8s_v3 ^1^
+* E32s_v3 ^1,3^
+* E48s_v3 ^1,3^
+* E64is_v3 ^1,3^
+* E4ds_v4 ^3^
+* E8ds_v4 ^3^
+* E32ds_v4 ^3^
+* E48ds_v4 ^3^
+* E80ids_v4 ^3^
+* E4ds_v5
+* E8ds_v5
+* E20ds_v5 ^3^
+* E32ds_v5 ^3^
+* E48ds_v5 ^3^
+* E64ds_v5 ^3^
+* L8s_v3 ^2^
+* L16s_v3 ^2^
+* L32s_v3 ^2^
+* L48s_v3 ^2^
+* L64s_v3 ^2^
+
+
+
+
+| サポートされているディスクタイプ ^4^ 4+| 標準 HDD マネージド ディスク、標準 SSD マネージド ディスク、プレミアム SSD マネージド ディスク 
+|===
+注：
+
+. ^1^ Azure にCloud Volumes ONTAPの新しいインスタンスを展開するときに、DS_v2 および Es_v3 マシン ファミリはBlueXPで選択できなくなりました。これらのファミリは、古い既存のシステムでのみ保持され、サポートされます。  Cloud Volumes ONTAPの新しいデプロイメントは、9.12.1 リリース以降でのみ Azure でサポートされます。 Es_v4 またはCloud Volumes ONTAP 9.12.1 以降と互換性のある他のシリーズに切り替えることをお勧めします。ただし、DS_v2 および Es_v3 シリーズのマシンは、API を通じて行われる新しいデプロイメントでは利用できるようになります。
+. ^2^ この VM タイプには、 Cloud Volumes ONTAP が_Flash Cache_ として使用するローカル NVMe ストレージが含まれます。 Flash Cache は、最近読み取られたユーザー データとNetAppメタデータをリアルタイムでインテリジェントにキャッシュすることで、データへのアクセスを高速化します。これは、データベース、電子メール、ファイル サービスなどのランダム読み取り集中型のワークロードに効果的です。 https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/concept-flash-cache.html["詳細情報"^] 。
+. ^3^ これらのVMタイプは https://docs.microsoft.com/en-us/azure/virtual-machines/windows/disks-enable-ultra-ssd["ウルトラSSD"^]VNVRAM の場合、書き込みパフォーマンスが向上します。
++
+新しいCloud Volumes ONTAPシステムを展開するときにこれらの VM タイプのいずれかを選択した場合、VNVRAM に Ultra SSD を使用しない別の VM タイプに変更することはできません。たとえば、E8ds_v4 から E8s_v3 に変更することはできませんが、E8ds_v4 から E32ds_v4 に変更することはできます。これは、これらの VM タイプは両方とも Ultra SSD を使用しているためです。
+
++
+逆に、他の VM タイプを使用してCloud Volumes ONTAPをデプロイした場合は、VNVRAM に Ultra SSD を使用する VM タイプに変更することはできません。たとえば、E8s_v3 から E8ds_v4 に変更することはできません。
+
+. ^4^ 単一ノード システムを使用する場合、すべてのインスタンス タイプで高速書き込みがサポートされます。展開中または展開後のいつでも、 BlueXPからの高速書き込み速度を有効にすることができます。 https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/concept-write-speed.html["書き込み速度の選択について詳しくはこちら"^] 。  SSD を使用すると、書き込みパフォーマンスが向上します。
+. ^5^Azure Blob ストレージへのデータ階層化は PAYGO Explore ではサポートされていません。
+
+
+--
+====
+
+
+=== HAペア
+
+Cloud Volumes ONTAP をAzure の HA ペアとしてデプロイする場合は、次の構成から選択できます。
+
+
+
+==== ページブロブとHAペア
+
+Azure の既存のCloud Volumes ONTAP HA ページ BLOB デプロイメントでは、次の構成を使用できます。
+
+
+NOTE: Azure ページ BLOB は、新しいデプロイメントではサポートされません。
+
+[role="tabbed-block"]
+====
+.容量ベースのライセンス
+--
+[cols="h,d,d,d"]
+|===
+|  | フリーミアム | 最適化されました ^4^ | 容量ベースのライセンス（Essentials および Professional） 
+
+
+| 最大システム容量（ディスク + オブジェクト ストレージ） | 500ギガバイト  a| 
+容量ベースのライセンスにより、各Cloud Volumes ONTAPシステムはオブジェクト ストレージへの階層化をサポートします。階層化された合計容量は、クラウド プロバイダーのバケット制限まで拡張できます。ライセンスには容量制限はありませんが、 https://www.netapp.com/pdf.html?item=/media/17239-tr-4598.pdf["『FabricPoolのベストプラクティス』"^]階層化を構成および管理する際に最適なパフォーマンス、信頼性、コスト効率を確保します。
+
+
+
+| サポートされている仮想マシンの種類  a| 
+* DS4_v2
+* DS5_v2 ^1^
+* DS13_v2
+* DS14_v2 ^1^
+* DS15_v2 ^1^
+* E8s_v3
+* E48s_v3 ^1^
+* E8ds_v4 ^3^
+* E32ds_v4 ^1,3^
+* E48ds_v4 ^1,3^
+* E80ids_v4 ^1,2,3^
+* E8ds_v5
+* E20ds_v5 ^1^
+* E32ds_v5 ^1^
+* E48ds_v5 ^1^
+* E64ds_v5 ^1^
+
+ a| 
+* DS4_v2
+* DS13_v2
+* E8s_v3
+* E8ds_v4 ^3^
+* E8ds_v5
+
+ a| 
+* DS4_v2
+* DS5_v2 ^1^
+* DS13_v2
+* DS14_v2 ^1^
+* DS15_v2 ^1^
+* E8s_v3
+* E48s_v3 ^1^
+* E8ds_v4 ^3^
+* E32ds_v4 ^1,3^
+* E48ds_v4 ^1,3^
+* E80ids_v4 ^1,2,3^
+* E8ds_v5
+* E20ds_v5 ^1^
+* E32ds_v5 ^1^
+* E48ds_v5 ^1^
+* E64ds_v5 ^1^
+
+
+
+
+| サポートされているディスクの種類 3+| ページブロブ 
+|===
+注：
+
+. ^1^ Cloud Volumes ONTAP は、HA ペアを使用する場合、これらの VM タイプで高速書き込みをサポートします。展開中または展開後のいつでも、 BlueXPからの高速書き込み速度を有効にすることができます。 https://docs.netapp.com/us-en/cloud-manager-cloud-volumes-ontap/concept-write-speed.html["書き込み速度の選択について詳しくはこちら"^] 。
+. ^2^ この VM は、Azure メンテナンス制御が必要な場合にのみ推奨されます。価格が高いため、他の用途にはお勧めできません。
+. ^3^ これらの VM は、 Cloud Volumes ONTAP 9.11.1 以前のデプロイメントでのみサポートされます。これらの VM タイプを使用すると、既存のページ BLOB デプロイメントをCloud Volumes ONTAP 9.11.1 から 9.12.1 にアップグレードできます。  Cloud Volumes ONTAP 9.12.1 以降では、新しいページ BLOB の展開は実行できません。
+. ^4^ 2025 年 8 月 11 日以降、 Cloud Volumes ONTAP Optimized ライセンスは非推奨となり、従量課金制 (PAYGO) サブスクリプションの Azure マーケットプレースで購入または更新できなくなります。 https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/whats-new.html#11-august-2025["最適化ライセンスの提供終了"^] 。
+
+
+--
+.ノードベースのライセンス
+--
+[cols="h,d,d,d"]
+|===
+|  | PAYGOスタンダード | PAYGOプレミアム | ノードベースのBYOL 
+
+
+| 最大システム容量（ディスク + オブジェクト ストレージ） | 10TiB | 368 TiB | ライセンスあたり368 TiB 
+
+
+| サポートされている仮想マシンの種類  a| 
+* DS4_v2
+* DS13_v2
+* E8s_v3
+* E8ds_v4 ^3^
+* E8ds_v5
+
+ a| 
+* DS5_v2 ^1^
+* DS14_v2 ^1^
+* DS15_v2 ^1^
+* E48s_v3 ^1^
+* E32ds_v4 ^1,3^
+* E48ds_v4 ^1,3^
+* E80ids_v4 ^1,2,3^
+* E20ds_v5 ^1^
+* E32ds_v5 ^1^
+* E48ds_v5 ^1^
+* E64ds_v5 ^1^
+
+ a| 
+* DS4_v2
+* DS5_v2 ^1^
+* DS13_v2
+* DS14_v2 ^1^
+* DS15_v2 ^1^
+* E8s_v3
+* E48s_v3 ^1^
+* E8ds_v4 ^3^
+* E32ds_v4 ^1,3^
+* E48ds_v4 ^1,3^
+* E80ids_v4 ^1,2,3^
+* E4ds_v5
+* E8ds_v5
+* E20ds_v5 ^1^
+* E32ds_v5 ^1^
+* E48ds_v5 ^1^
+* E64ds_v5 ^1^
+
+
+
+
+| サポートされているデータディスクの種類 3+| ページブロブ 
+|===
+注：
+
+. ^1^ Cloud Volumes ONTAP は、HA ペアを使用する場合、これらの VM タイプで高速書き込みをサポートします。展開中または展開後のいつでも、 BlueXPからの高速書き込み速度を有効にすることができます。 https://docs.netapp.com/us-en/cloud-manager-cloud-volumes-ontap/concept-write-speed.html["書き込み速度の選択について詳しくはこちら"^] 。
+. ^2^ この VM は、Azure メンテナンス制御が必要な場合にのみ推奨されます。価格が高いため、他の用途にはお勧めできません。
+. ^3^ これらの VM は、 Cloud Volumes ONTAP 9.11.1 以前のデプロイメントでのみサポートされます。これらの VM タイプを使用すると、既存のページ BLOB デプロイメントをCloud Volumes ONTAP 9.11.1 から 9.12.1 にアップグレードできます。  Cloud Volumes ONTAP 9.12.1 以降では、新しいページ BLOB の展開は実行できません。
+
+
+--
+====
+
+
+==== 共有管理ディスクを備えた HA ペア
+
+Cloud Volumes ONTAP をAzure の HA ペアとしてデプロイする場合は、次の構成から選択できます。
+
+[role="tabbed-block"]
+====
+.容量ベースのライセンス
+--
+[cols="h,d,d,d"]
+|===
+|  | フリーミアム | 最適化されました ^7^ | 容量ベースのライセンス（Essentials および Professional） 
+
+
+| 最大システム容量（ディスク + オブジェクト ストレージ） | 500ギガバイト  a| 
+容量ベースのライセンスにより、各Cloud Volumes ONTAPシステムはオブジェクト ストレージへの階層化をサポートします。階層化された合計容量は、クラウド プロバイダーのバケット制限まで拡張できます。ライセンスには容量制限はありませんが、 https://www.netapp.com/pdf.html?item=/media/17239-tr-4598.pdf["『FabricPoolのベストプラクティス』"^]階層化を構成および管理する際に最適なパフォーマンス、信頼性、コスト効率を確保します。
+
+
+
+| サポートされている仮想マシンの種類  a| 
+* E8ds_v4
+* E32ds_v4 ^1^
+* E48ds_v4 ^1^
+* E80ids_v4 ^1,2^
+* E8ds_v5 ^4^
+* E20ds_v5 ^1,4^
+* E32ds_v5 ^1,4^
+* E48ds_v5 ^1,4^
+* E64ds_v5 ^1,4^
+* L8s_v3 ^1,3,5^
+* L16s_v3 ^1,3,5^
+* L32s_v3 ^1,3,5^
+* L48s_v3 ^1,3,5^
+* L64s_v3 ^1,3,5^
+
+ a| 
+* E8ds_v4
+* E8ds_v5 ^4^
+
+ a| 
+* E8ds_v4
+* E32ds_v4 ^1^
+* E48ds_v4 ^1^
+* E80ids_v4 ^1,2^
+* E8ds_v5 ^4^
+* E20ds_v5 ^1,4^
+* E32ds_v5 ^1,4^
+* E48ds_v5 ^1,4^
+* E64ds_v5 ^1,4^
+* L8s_v3 ^1,3,5^
+* L16s_v3 ^1,3,5^
+* L32s_v3 ^1,3,5^
+* L48s_v3 ^1,3,5^
+* L64s_v3 ^1,3,5^
+
+
+
+
+| サポートされているディスクの種類 ^6^ 3+| Premium SSD マネージド ディスクまたは Premium SSD v2 マネージド ディスク。 
+|===
+注：
+
+. ^1^ Cloud Volumes ONTAP は、HA ペアを使用する場合、これらの VM タイプで高速書き込みをサポートします。展開中または展開後のいつでも、 BlueXPからの高速書き込み速度を有効にすることができます。 https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/concept-write-speed.html["書き込み速度の選択について詳しくはこちら"^] 。
+. ^2^ この VM は、Azure メンテナンス制御が必要な場合にのみ推奨されます。価格が高いため、他の用途にはお勧めできません。
+. ^3^ 複数の可用性ゾーンのサポートは、 ONTAPバージョン 9.13.1 から開始されます。
+. ^4^ 複数の可用性ゾーンのサポートは、 ONTAPバージョン 9.14.1 RC1 から開始されます。
+. ^5^ この VM タイプには、 Cloud Volumes ONTAP が_Flash Cache_ として使用するローカル NVMe ストレージが含まれます。 Flash Cache は、最近読み取られたユーザー データとNetAppメタデータをリアルタイムでインテリジェントにキャッシュすることで、データへのアクセスを高速化します。これは、データベース、電子メール、ファイル サービスなどのランダム読み取り集中型のワークロードに効果的です。 https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/concept-flash-cache.html["詳細情報"^] 。
+. ^6^ HA展開の単一および複数のアベイラビリティゾーンのシステムデータ用の内部ディスクの詳細については、 https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/reference-default-configs.html#azure-ha-pair["Azure（HAペア）"^] 。
+. ^7^ 2025 年 8 月 11 日以降、 Cloud Volumes ONTAP Optimized ライセンスは非推奨となり、従量課金制 (PAYGO) サブスクリプションの Azure マーケットプレースで購入または更新できなくなります。 https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/whats-new.html#11-august-2025["最適化ライセンスの提供終了"^] 。
+
+
+--
+.ノードベースのライセンス
+--
+[cols="h,d,d,d"]
+|===
+|  | PAYGOスタンダード | PAYGOプレミアム | ノードベースのBYOL 
+
+
+| 最大システム容量（ディスク + オブジェクト ストレージ） | 10TiB | 368 TiB | ライセンスあたり368 TiB 
+
+
+| サポートされている仮想マシンの種類  a| 
+* E8ds_v4 ^4^
+* E8ds_v5
+* L8s_v3 ^4,5^
+
+ a| 
+* E32ds_v4 ^1,4^
+* E48ds_v4 ^1,4^
+* E80ids_v4 ^1,2,4^
+* E20ds_v5 ^1^
+* E32ds_v5 ^1^
+* E48ds_v5 ^1^
+* E64ds_v5 ^1^
+* L16s_v3 ^1,4,5^
+* L32s_v3 ^1,4,5^
+* L48s_v3 ^1,4,5^
+* L64s_v3 ^1,4,5^
+
+ a| 
+* E8ds_v4 ^4^
+* E32ds_v4 ^1,4^
+* E48ds_v4 ^1,4^
+* E80ids_v4 ^1,2,4^
+* E4ds_v5
+* E8ds_v5
+* E20ds_v5 ^1^
+* E32ds_v5 ^1^
+* E48ds_v5 ^1^
+* E64ds_v5 ^1^
+* L16s_v3 ^1,4,5^
+* L32s_v3 ^1,4,5^
+* L48s_v3 ^1,4,5^
+* L64s_v3 ^1,4,5^
+
+
+
+
+| サポートされているディスクの種類 3+| マネージドディスク 
+|===
+注：
+
+. ^1^ Cloud Volumes ONTAP は、HA ペアを使用する場合、これらの VM タイプで高速書き込みをサポートします。展開中または展開後のいつでも、 BlueXPからの高速書き込み速度を有効にすることができます。 https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/concept-write-speed.html["書き込み速度の選択について詳しくはこちら"^] 。
+. ^2^ この VM は、Azure メンテナンス制御が必要な場合にのみ推奨されます。価格が高いため、他の用途にはお勧めできません。
+. ^3^ これらの VM タイプは、共有管理ディスク上で実行されている単一の可用性ゾーン構成の HA ペアでのみサポートされます。
+. ^4^ これらの VM タイプは、共有マネージド ディスク上で実行される単一の可用性ゾーンおよび複数の可用性ゾーン構成の HA ペアでサポートされます。  Ls_v3 VM タイプの場合、複数の可用性ゾーンのサポートはONTAPバージョン 9.13.1 から開始されます。  Eds_v5 VM タイプの場合、複数の可用性ゾーンのサポートはONTAPバージョン 9.14.1 RC1 から開始されます。
+. ^5^ この VM タイプには、 Cloud Volumes ONTAP が_Flash Cache_ として使用するローカル NVMe ストレージが含まれます。 Flash Cache は、最近読み取られたユーザー データとNetAppメタデータをリアルタイムでインテリジェントにキャッシュすることで、データへのアクセスを高速化します。これは、データベース、電子メール、ファイル サービスなどのランダム読み取り集中型のワークロードに効果的です。 https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/concept-flash-cache.html["詳細情報"^] 。
+
+
+--
+====
+
+
+== サポートされているディスクサイズ
+
+Azure では、アグリゲートには、すべて同じタイプとサイズのディスクを最大 12 個まで含めることができます。
+
+
+
+=== 単一ノードシステム
+
+単一ノード システムでは、Azure Managed Disks が使用されます。次のディスク サイズがサポートされています。
+
+[cols="3*"]
+|===
+| プレミアムSSD | 標準SSD | 標準HDD 
+
+
+ a| 
+* 500ギガバイト
+* 1TiB
+* 2 TiB
+* 4TiB
+* 8TiB
+* 16TiB
+* 32 TiB
+
+ a| 
+* 100ギガバイト
+* 500ギガバイト
+* 1TiB
+* 2 TiB
+* 4TiB
+* 8TiB
+* 16TiB
+* 32 TiB
+
+ a| 
+* 100ギガバイト
+* 500ギガバイト
+* 1TiB
+* 2 TiB
+* 4TiB
+* 8TiB
+* 16TiB
+* 32 TiB
+
+
+|===
+
+
+=== HAペア
+
+HA ペアは Azure Managed Disks を使用します。次のディスク タイプとサイズがサポートされています。
+
+(ページ BLOB は、9.12.1 リリースより前に導入された HA ペアでサポートされます。)
+
+*プレミアムSSD*
+
+* 500ギガバイト
+* 1TiB
+* 2 TiB
+* 4TiB
+* 8TiB
+* 16 TiB (マネージド ディスクのみ)
+* 32 TiB (マネージド ディスクのみ)
+
+
+
+
+== サポートされている地域
+
+Azureリージョンのサポートについては、 https://bluexp.netapp.com/cloud-volumes-global-regions["Cloud Volumes グローバルリージョン"^] 。

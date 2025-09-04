@@ -1,0 +1,50 @@
+---
+sidebar: sidebar 
+permalink: reference-limitations-azure.html 
+keywords: limitations, ha, azure, pay-as-you-go, paygo, cloud solution provider, vm, flash cache 
+summary: これらの既知の制限は、Microsoft Azure のCloud Volumes ONTAPに固有のものです。 
+---
+= Azure のCloud Volumes ONTAPの既知の制限事項
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+次の既知の制限は、Microsoft Azure のCloud Volumes ONTAPに固有のものです。必ず確認してくださいlink:reference-limitations.html["すべてのクラウドプロバイダーにおけるCloud Volumes ONTAPの制限"]。
+
+
+
+== Azure VM拡張機能の使用に関する制限
+
+Cloud Volumes ONTAP は、 BlueXP管理操作に影響するため、Azure 仮想マシン (VM) 拡張機能をサポートしていません。展開中に、 BlueXP はVM への拡張機能のインストールを防止します。既存のCloud Volumes ONTAP VM に拡張機能がすでにインストールされている場合は、Microsoft Azure サポートに連絡して削除してください。ガイダンスについては、ナレッジベース（KB）の記事を参照してください。 https://kb.netapp.com/Cloud/Cloud_Volumes_ONTAP/Can_Azure_VM_Management_Extensions_be_installed_into_Cloud_Volume_ONTAP["Azure VM Management Extensions を Cloud Volume ONTAPにインストールできますか?"^]
+
+2025 年 7 月 14 日以降、 Cloud Volumes ONTAP VM で VM 拡張機能が検出されると、 NetApp電子メールが送信され、 BlueXPで通知されます。
+
+
+
+== フラッシュキャッシュの制限
+
+Cloud Volumes ONTAP は、一部の VM タイプでローカル NVMe ストレージを _Flash Cache_ として使用します。次の制限に注意してください:
+
+* 再起動後のキャッシュの再ウォームアップはサポートされていません。
+
+
+
+
+== 高可用性展開の制限
+
+一部のリージョンでは高可用性 (HA) ペアはサポートされていません。
+
+https://bluexp.netapp.com/cloud-volumes-global-regions["サポートされているAzureリージョンのリストを表示する"^] 。
+
+
+
+== 単一のアベイラビリティゾーンにおけるHA展開の制限
+
+Cloud Volumes ONTAP 9.15.1 以降では、Azure の単一の可用性ゾーン (AZ) に HA モードで仮想マシン (VM) インスタンスをデプロイできます。この機能をサポートする基準については、以下を参照してください。 https://docs.netapp.com/us-en/cloud-volumes-ontap-9151-relnotes/reference-new.html#deploy-ha-pairs-in-single-availability-zones-on-azure["Azure の単一の可用性ゾーンに HA ペアを展開する"^] 。
+
+Cloud Volumes ONTAP のバージョンが 9.15.1 より前の場合、またはこれらの条件のいずれかが満たされていない場合は、可用性セットを利用する以前の展開モデルが有効になります。これは HA 構成にのみ適用されます。

@@ -22,7 +22,7 @@ BlueXPの最新バージョンでは、追加の機能と拡張機能も導入�
 
 == 9.16.1 P7（2025年10月9日）
 
-AzureおよびGoogle CloudのCloud Volumes ONTAPに9.16.1 P7パッチをデプロイおよびアップグレードできるようになりました。ただし、このバージョンはAWSではデプロイおよびアップグレードできません。BlueXPNetApp Consoleは、既存のシステムをこのパッチ リリースにアップグレードするように要求します。
+Cloud Volumes ONTAP 9.16.1 P7 パッチが、Azure および Google Cloud でアップグレードできるようになりました。ただし、このバージョンは AWS でのアップグレードには利用できません。NetApp Consoleは、既存のシステムをこのパッチ リリースにアップグレードするように要求します。
 
 link:https://mysupport.netapp.com/site/products/all/details/cloud-volumes-ontap/downloads-tab/download/62632/9.16.1P7["P7パッチで修正されたバグのリストを見る"^] (NetAppサポート サイトへのログインが必要です)。
 
@@ -30,7 +30,7 @@ link:https://mysupport.netapp.com/site/products/all/details/cloud-volumes-ontap/
 
 == 9.16.1 P6（2025年10月9日）
 
-AzureおよびGoogle CloudのCloud Volumes ONTAPに9.16.1 P6パッチをデプロイおよびアップグレードできるようになりました。ただし、このバージョンはAWSではデプロイおよびアップグレードできません。BlueXPNetApp Consoleは、既存のシステムをこのパッチ リリースにアップグレードするように要求します。
+Cloud Volumes ONTAP 9.16.1 P6 パッチが、Azure および Google Cloud でアップグレードできるようになりました。ただし、このバージョンは AWS でのアップグレードには利用できません。NetApp Consoleは、既存のシステムをこのパッチ リリースにアップグレードするように要求します。
 
 link:https://mysupport.netapp.com/site/products/all/details/cloud-volumes-ontap/downloads-tab/download/62632/9.16.1P6["P6パッチで修正されたバグのリストを見る"^] (NetAppサポート サイトへのログインが必要です)。
 
@@ -38,7 +38,7 @@ link:https://mysupport.netapp.com/site/products/all/details/cloud-volumes-ontap/
 
 == 9.16.1 P5（2025年7月28日）
 
-AzureおよびGoogle CloudのCloud Volumes ONTAPに9.16.1 P5パッチをデプロイおよびアップグレードできるようになりました。ただし、このバージョンはAWSではデプロイおよびアップグレードできません。BlueXPは、既存のシステムをこのパッチリリースにアップグレードするよう促すメッセージが表示されます。
+Cloud Volumes ONTAP 9.16.1 P5 パッチが、Azure および Google Cloud でアップグレードできるようになりました。ただし、このバージョンは AWS でのアップグレードには利用できません。は、既存のシステムをこのパッチリリースにアップグレードするよう促すメッセージが表示されます。
 
 link:https://mysupport.netapp.com/site/products/all/details/cloud-volumes-ontap/downloads-tab/download/62632/9.16.1P5["P5パッチで修正されたバグのリストを見る"^] (NetAppサポート サイトへのログインが必要です)。
 
@@ -46,7 +46,7 @@ link:https://mysupport.netapp.com/site/products/all/details/cloud-volumes-ontap/
 
 == 9.16.1 P4（2025年7月8日）
 
-AzureおよびGoogle CloudのCloud Volumes ONTAPに9.16.1 P4パッチをデプロイおよびアップグレードできるようになりました。ただし、このバージョンはAWSではデプロイおよびアップグレードできません。BlueXPは、既存のシステムをこのパッチリリースにアップグレードするよう促すメッセージが表示されます。
+Cloud Volumes ONTAP 9.16.1 P4 パッチが、Azure および Google Cloud でアップグレードできるようになりました。ただし、このバージョンは AWS でのアップグレードには利用できません。は、既存のシステムをこのパッチリリースにアップグレードするよう促すメッセージが表示されます。
 
 link:https://mysupport.netapp.com/site/products/all/details/cloud-volumes-ontap/downloads-tab/download/62632/9.16.1P4["P4パッチで修正されたバグのリストを見る"^] (NetAppサポート サイトへのログインが必要です)。
 
@@ -54,7 +54,7 @@ link:https://mysupport.netapp.com/site/products/all/details/cloud-volumes-ontap/
 
 == 9.16.1 P3（2025年5月29日）
 
-AzureおよびGoogle CloudのCloud Volumes ONTAPに9.16.1 P3パッチをデプロイおよびアップグレードできるようになりました。ただし、このバージョンはAWSではデプロイおよびアップグレードできません。BlueXPは、既存のシステムをこのパッチリリースにアップグレードするよう促すメッセージが表示されます。
+Cloud Volumes ONTAP 9.16.1 P3 パッチが、Azure および Google Cloud でアップグレードできるようになりました。ただし、このバージョンは AWS でのアップグレードには利用できません。は、既存のシステムをこのパッチリリースにアップグレードするよう促すメッセージが表示されます。
 
 link:https://mysupport.netapp.com/site/products/all/details/cloud-volumes-ontap/downloads-tab/download/62632/9.16.1P3["P3パッチで修正されたバグのリストを見る"^] (NetAppサポート サイトへのログインが必要です)。
 
@@ -62,7 +62,7 @@ link:https://mysupport.netapp.com/site/products/all/details/cloud-volumes-ontap/
 
 == 9.16.1 P2（2025年4月17日）
 
-AzureおよびGoogle CloudのCloud Volumes ONTAPに9.16.1 P2パッチをデプロイおよびアップグレードできるようになりました。ただし、このバージョンはAWSではデプロイおよびアップグレードできません。BlueXPは、既存のシステムをこのパッチリリースにアップグレードするよう促すメッセージが表示されます。
+Cloud Volumes ONTAP 9.16.1 P2 パッチが、Azure および Google Cloud でアップグレードできるようになりました。ただし、このバージョンは AWS でのアップグレードには利用できません。は、既存のシステムをこのパッチリリースにアップグレードするよう促すメッセージが表示されます。
 
 link:https://mysupport.netapp.com/site/products/all/details/cloud-volumes-ontap/downloads-tab/download/62632/9.16.1P2["P2パッチで修正されたバグのリストを見る"^] (NetAppサポート サイトへのログインが必要です)。
 
@@ -70,7 +70,7 @@ link:https://mysupport.netapp.com/site/products/all/details/cloud-volumes-ontap/
 
 == 9.16.1 P1（2025年4月17日）
 
-AzureおよびGoogle CloudのCloud Volumes ONTAPに9.16.1 P1パッチをデプロイおよびアップグレードできるようになりました。ただし、このバージョンはAWSではデプロイおよびアップグレードできません。BlueXPは、既存のシステムをこのパッチリリースにアップグレードするよう促すメッセージが表示されます。
+Cloud Volumes ONTAP 9.16.1 P1 パッチが、Azure および Google Cloud でアップグレードできるようになりました。ただし、このバージョンは AWS でのアップグレードには利用できません。は、既存のシステムをこのパッチリリースにアップグレードするよう促すメッセージが表示されます。
 
 link:https://mysupport.netapp.com/site/products/all/details/cloud-volumes-ontap/downloads-tab/download/62632/9.16.1P1["P1パッチで修正されたバグのリストを見る"^] (NetAppサポート サイトへのログインが必要です)。
 

@@ -20,6 +20,14 @@ Cloud Volumes ONTAP 9.16.1 には新しい機能強化が含まれています�
 
 
 
+== 9.16.1 P11（17 February 2026）
+
+Cloud Volumes ONTAP 9.16.1 P11パッチがすべてのクラウドプロバイダーでアップグレードできるようになりました。コンソールは、既存のシステムをこのパッチリリースにアップグレードするように要求します。
+
+link:https://mysupport.netapp.com/site/products/all/details/cloud-volumes-ontap/downloads-tab/download/62632/9.16.1P11["P11パッチで修正されたバグのリストを表示する"^]（NetApp Support Site へのログインが必要です）。
+
+
+
 == 9.16.1 P10（2025年12月22日）
 
 Cloud Volumes ONTAP 9.16.1 P10 パッチが、すべてのクラウド プロバイダーでアップグレードできるようになりました。コンソールは、既存のシステムをこのパッチ リリースにアップグレードするように要求します。
